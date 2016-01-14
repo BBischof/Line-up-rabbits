@@ -71,36 +71,39 @@ def countPatterns(l,r,pats):
 		total += lmult*rmult
 	print "showing left: " + str(l) + " showing right: " + str(r) + " number of patters: " + str(total)
 
-lst = range(1,totalNumber+1)
-print lst
-outputList = []
-i = 0
-outputDict = {}
-currentDiv = ""
-currentSide = ""
-for division in genSubsetsWithComplements(lst[:-1]):
-	currentDiv = str(division)
-	# outputList.append([division, "||"])
-	outputDict[currentDiv]={"L": [], "R": []}
-	# print "#############################################"
-	print "division: " + str(division)
-	# print "#############################################"
-	# print "left side"
-	currentSide = "L"
-	#multiplicity = 0
-	split(division[0], [], [])
-#	print "right side"
-	currentSide = "R"
-	# outputList[i].append("|")
-	split(division[1], [], [])
-	i +=1
+if ((totalNumber >= leftShowingNum + rightShowingNum) & (leftShowingNum >= 1) & (rightShowingNum >= 1)):
+	lst = range(1,totalNumber+1)
+	print lst
+	outputList = []
+	i = 0
+	outputDict = {}
+	currentDiv = ""
+	currentSide = ""
+	for division in genSubsetsWithComplements(lst[:-1]):
+		currentDiv = str(division)
+		# outputList.append([division, "||"])
+		outputDict[currentDiv]={"L": [], "R": []}
+		# print "#############################################"
+		print "division: " + str(division)
+		# print "#############################################"
+		# print "left side"
+		currentSide = "L"
+		#multiplicity = 0
+		split(division[0], [], [])
+	#	print "right side"
+		currentSide = "R"
+		# outputList[i].append("|")
+		split(division[1], [], [])
+		i +=1
 
-for key in outputDict.keys():
-	print key,outputDict[key]
+	for key in outputDict.keys():
+		print key,outputDict[key]
 
-print "###############"
+	print "###############"
 
-countPatterns(leftShowingNum,rightShowingNum,outputDict)
+	countPatterns(leftShowingNum,rightShowingNum,outputDict)
+else:
+	print "There are zero patterns, check your conditions!"
 
 #print genSubsetsWithComplements(lst)
 

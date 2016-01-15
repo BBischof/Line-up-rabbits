@@ -1,9 +1,13 @@
 import sys
+verbose = False
 if len(sys.argv) >= 2:
 	args = sys.argv
 	totalNumber = int(args[1])
 	leftShowingNum = int(args[2])
 	rightShowingNum = int(args[3])
+	if len(args) >= 5:
+		if args[4] == "-v":
+			verbose = True
 
 def factorial(n):
     if n == 1:
@@ -40,12 +44,14 @@ def genSubsetsWithComplements(listToSeparate):
 def split(inputList, tallsList, behindList):
 	#multiplicity = m
 	if len(inputList) == 0:
-		print str(tallsList) + ", " + str(behindList) + ", "  + str(len(tallsList)) + ", " + str(computeMultiplicity(behindList))
+		if verbose:
+			print str(tallsList) + ", " + str(behindList) + ", "  + str(len(tallsList)) + ", " + str(computeMultiplicity(behindList))
 		#outputList[i].append([tallsList, behindList, len(tallsList), computeMultiplicity(behindList)])
 		outputDict[currentDiv][currentSide].append([len(tallsList), computeMultiplicity(behindList)])
 		#multiplicity += computeMultiplicity(behindList)
 	elif len(inputList) == 1:
-		print str(tallsList + inputList) + ", " + str(behindList) + ", " + str(len(tallsList + inputList)) + ", " + str(computeMultiplicity(behindList))
+		if verbose:
+			print str(tallsList + inputList) + ", " + str(behindList) + ", " + str(len(tallsList + inputList)) + ", " + str(computeMultiplicity(behindList))
 		#outputList[i].append([tallsList + inputList, behindList, len(tallsList + inputList), computeMultiplicity(behindList)])
 		outputDict[currentDiv][currentSide].append([len(tallsList + inputList), computeMultiplicity(behindList)])
 		#multiplicity += computeMultiplicity(behindList)
@@ -73,7 +79,8 @@ def countPatterns(l,r,pats):
 
 if ((totalNumber + 1 >= leftShowingNum + rightShowingNum) & (leftShowingNum >= 1) & (rightShowingNum >= 1)):
 	lst = range(1,totalNumber+1)
-	print lst
+	if verbose:
+		print lst
 	outputList = []
 	i = 0
 	outputDict = {}
@@ -84,7 +91,8 @@ if ((totalNumber + 1 >= leftShowingNum + rightShowingNum) & (leftShowingNum >= 1
 		# outputList.append([division, "||"])
 		outputDict[currentDiv]={"L": [], "R": []}
 		# print "#############################################"
-		print "division: " + str(division)
+		if verbose:
+			print "division: " + str(division)
 		# print "#############################################"
 		# print "left side"
 		currentSide = "L"
@@ -97,9 +105,11 @@ if ((totalNumber + 1 >= leftShowingNum + rightShowingNum) & (leftShowingNum >= 1
 		i +=1
 
 	for key in outputDict.keys():
-		print key,outputDict[key]
+		if verbose:
+			print key,outputDict[key]
 
-	print "###############"
+	if verbose:
+			print "###############"
 
 	countPatterns(leftShowingNum,rightShowingNum,outputDict)
 else:

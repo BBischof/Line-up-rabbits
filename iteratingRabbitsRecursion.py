@@ -104,12 +104,15 @@ for totalNumber in range(2, max+1):
 	#print "###############"
 
 	outputMatrix=numpy.empty(shape=[totalNumber, totalNumber])
+	for i in range(1, totalNumber+1):
+		for j in range(1, totalNumber+1):
+			outputMatrix[i-1][j-1] = 0
 
 	for i in range(1, totalNumber+1):
 		leftShowingNum = i
 		for j in range(1, totalNumber+1):
 			rightShowingNum = j
-			outputMatrix[i-1][j-1] = countPatterns(leftShowingNum,rightShowingNum,outputDict)
+			outputMatrix[j-1][i-1] = countPatterns(leftShowingNum,rightShowingNum,outputDict)
 
 	print outputMatrix
 

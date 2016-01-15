@@ -4,6 +4,21 @@
 
 Given $n$ rabbits of different heights, how many ways can we put them into a line such that we see $l$ from the left, and $r$ from the right.
 
+## Algorithm
+
+The recursive algorithm is as follows:
+- Remove the last element of the list this will help us decide where other elements are, this will *always* be seen, as it is the tallest
+- partition the remaining into two sets, call the recursive function on both
+- **recursive function begins here**
+- if the number of elements in the set is 0 or 1, it's a base case
+- taking the set, remove the largest element, this will definitely be seen from the left, so again, we use it to partition our left set
+- take the remaining left set and partition it into left and right again
+- call the recusive function on left and right sides
+- **base cases**
+- if there is 0 elements, then the previously tallest are the only visible elements, count all the elements hidden and calculate the multiplicity by those numbers factorial, multiplied
+- if there is 1 elements, then the previously tallest plus this one are the only visible elements, count all the elements hidden and calculate the multiplicity by those numbers factorial, multiplied
+
+
 ## Usage
 
 For recursive solution: 

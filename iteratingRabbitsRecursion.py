@@ -1,9 +1,8 @@
+import numpy
 import sys
 if len(sys.argv) >= 2:
 	args = sys.argv
-	totalNumber = int(args[1])
-	leftShowingNum = int(args[2])
-	rightShowingNum = int(args[3])
+	max = int(args[1])
 
 def factorial(n):
     if n == 1:
@@ -40,12 +39,12 @@ def genSubsetsWithComplements(listToSeparate):
 def split(inputList, tallsList, behindList):
 	#multiplicity = m
 	if len(inputList) == 0:
-		print str(tallsList) + ", " + str(behindList) + ", "  + str(len(tallsList)) + ", " + str(computeMultiplicity(behindList))
+		#print str(tallsList) + ", " + str(behindList) + ", "  + str(len(tallsList)) + ", " + str(computeMultiplicity(behindList))
 		#outputList[i].append([tallsList, behindList, len(tallsList), computeMultiplicity(behindList)])
 		outputDict[currentDiv][currentSide].append([len(tallsList), computeMultiplicity(behindList)])
 		#multiplicity += computeMultiplicity(behindList)
 	elif len(inputList) == 1:
-		print str(tallsList + inputList) + ", " + str(behindList) + ", " + str(len(tallsList + inputList)) + ", " + str(computeMultiplicity(behindList))
+		#print str(tallsList + inputList) + ", " + str(behindList) + ", " + str(len(tallsList + inputList)) + ", " + str(computeMultiplicity(behindList))
 		#outputList[i].append([tallsList + inputList, behindList, len(tallsList + inputList), computeMultiplicity(behindList)])
 		outputDict[currentDiv][currentSide].append([len(tallsList + inputList), computeMultiplicity(behindList)])
 		#multiplicity += computeMultiplicity(behindList)
@@ -69,11 +68,14 @@ def countPatterns(l,r,pats):
 			if order[0]==r-1:
 				rmult += order[1]
 		total += lmult*rmult
-	print "showing left: " + str(l) + " showing right: " + str(r) + " number of patters: " + str(total)
+	#if total > 0:
+	#print "showing left: " + str(l) + ", showing right: " + str(r) + ", number of patters: " + str(total)
+	#print total
+	return total
 
-if ((totalNumber + 1 >= leftShowingNum + rightShowingNum) & (leftShowingNum >= 1) & (rightShowingNum >= 1)):
+for totalNumber in range(2, max+1):
 	lst = range(1,totalNumber+1)
-	print lst
+#	print lst
 	outputList = []
 	i = 0
 	outputDict = {}
@@ -84,7 +86,7 @@ if ((totalNumber + 1 >= leftShowingNum + rightShowingNum) & (leftShowingNum >= 1
 		# outputList.append([division, "||"])
 		outputDict[currentDiv]={"L": [], "R": []}
 		# print "#############################################"
-		print "division: " + str(division)
+#		print "division: " + str(division)
 		# print "#############################################"
 		# print "left side"
 		currentSide = "L"
@@ -96,16 +98,22 @@ if ((totalNumber + 1 >= leftShowingNum + rightShowingNum) & (leftShowingNum >= 1
 		split(division[1], [], [])
 		i +=1
 
-	for key in outputDict.keys():
-		print key,outputDict[key]
+	#for key in outputDict.keys():
+		#print key,outputDict[key]
 
-	print "###############"
+	#print "###############"
 
-	countPatterns(leftShowingNum,rightShowingNum,outputDict)
-else:
-	print "There are zero patterns, check your conditions!"
+	outputMatrix=numpy.empty(shape=[totalNumber, totalNumber])
 
-#print genSubsetsWithComplements(lst)
+	for i in range(1, totalNumber+1):
+		leftShowingNum = i
+		for j in range(1, totalNumber+1):
+			rightShowingNum = j
+			outputMatrix[i-1][j-1] = countPatterns(leftShowingNum,rightShowingNum,outputDict)
+
+	print outputMatrix
+
+	#print genSubsetsWithComplements(lst)
 
 
 
